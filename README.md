@@ -1,5 +1,7 @@
 # Memory Bank Skills
 
+[中文](README.zh-CN.md) | English
+
 Lightweight skills for maintaining project memory banks with human-reviewable files.
 
 The core idea is simple:
