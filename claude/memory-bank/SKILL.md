@@ -1,7 +1,7 @@
 ---
 name: memory-bank
 description: Maintain layered project memory. Use when updating memory, organizing memory files, archiving history, marking stale knowledge, recovering context, or converting append-only notes into structured layers.
-argument-hint: "[init|update|archive|status] [target-file]"
+argument-hint: "[init|update|archive|finish|status] [target-file]"
 allowed-tools: Read Write Edit Glob Grep Bash(ls) Bash(mkdir)
 ---
 
@@ -19,6 +19,7 @@ The user invoked `/memory-bank $ARGUMENTS`. Parse the first word as action:
 | `init` | Convert existing `memory.md` into layered structure |
 | `update <target>` | Update a specific file (current, knowledge, pitfalls, etc.) |
 | `archive [YYYY-MM]` | Move old content from current.md to history/YYYY-MM.md |
+| `finish` | Review completed work and decide what should be remembered |
 
 If no action is given, default to `status`.
 
@@ -89,6 +90,17 @@ Move outdated content from `current.md` to history:
 4. Remove archived items from `current.md`.
 5. Report what was archived.
 
+### finish
+
+Run a memory finish pass after a task, sync, fix, release, or investigation:
+
+1. Read the current memory entrypoint.
+2. Decide whether the task changed current state, stable knowledge, pitfalls, decisions, or history.
+3. Update only the files that need durable changes.
+4. Do not write one-off details, raw logs, or unverified guesses.
+5. Do not create a `spec.md` layer or convert memory into mandatory coding rules.
+6. Report what changed, or say that no durable memory update was needed.
+
 ## Workflow (General)
 
 1. Locate the memory entrypoint before editing:
@@ -105,6 +117,21 @@ Move outdated content from `current.md` to history:
 5. Preserve user-authored unrelated content. If existing content is ambiguous, ask before rewriting it.
 6. End with a concise report of files changed, facts replaced, items archived, and stale notes marked.
 
+## Finish Pass
+
+Use a finish pass at the end of a task, sync, fix, release, or investigation. The goal is not to write a summary of everything. The goal is to decide what future work actually needs.
+
+Ask these questions:
+
+- Current state: did the active project phase, latest status, constraint, or next action change?
+- Stable knowledge: was a durable fact or verified workflow learned?
+- Pitfall: was there a repeated mistake, misleading assumption, or recovery step worth preserving?
+- Decision: was an important choice made with a reason that future agents should know?
+- History: is there a completed milestone or old state that should move out of active context?
+- No-op: is this a one-off detail that should not be written?
+
+Do not create a `spec.md` layer or turn memory into mandatory coding rules. Keep memory descriptive, reviewable, and easy to revise.
+
 ## Read Decision Table
 
 Use the smallest sufficient read set.
@@ -119,6 +146,7 @@ Use the smallest sufficient read set.
 | Error, regression, repeated mistake | current entrypoint | `pitfalls.md`, relevant history |
 | Why a choice was made | current entrypoint | `decisions.md`, relevant history |
 | Retrospective or audit | current entrypoint | history files in the requested date range |
+| Finish work or wrap up a task | current entrypoint | `knowledge.md`, `pitfalls.md`, `decisions.md`, current month history |
 
 Do not read the full memory bank by default. History is an archive, not the working context.
 

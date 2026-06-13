@@ -1,6 +1,6 @@
 ---
 name: memory-bank-maintainer
-description: Maintain structured project memory and memory-bank files. Use when the user asks to update memory, organize or split a memory bank, archive historical notes, mark stale knowledge, improve context recovery, summarize project progress into durable memory, or convert append-only notes into layered current facts, stable knowledge, and history.
+description: Maintain structured project memory and memory-bank files. Use when the user asks to update memory, organize or split a memory bank, archive historical notes, mark stale knowledge, improve context recovery, finish work by deciding what should be remembered, summarize project progress into durable memory, or convert append-only notes into layered current facts, stable knowledge, and history.
 ---
 
 # Memory Bank Maintainer
@@ -17,6 +17,7 @@ Use these action shapes when the user asks for a concrete memory-bank operation:
 | Init | User asks to create or upgrade a memory bank | Propose or create the smallest useful structure, then classify existing memory into current facts, stable knowledge, and history. |
 | Update | User asks to update memory after work, sync, or a decision | Replace current facts, add durable knowledge only when it passes write admission, and archive old state. |
 | Archive | User asks to clean up, compress, or move old memory | Move dated or no-longer-current content to history and mark stale items instead of leaving them in active context. |
+| Finish | User finished a task and wants memory captured | Decide whether anything durable changed, then update current state, history, pitfalls, decisions, or knowledge only when needed. |
 
 Do not treat these as commands that must be present in the user request. They are intent categories for natural-language requests.
 
@@ -36,6 +37,21 @@ Do not treat these as commands that must be present in the user request. They ar
 5. Preserve user-authored unrelated content. If existing content is ambiguous, ask before rewriting it.
 6. End with a concise report of files changed, facts replaced, items archived, and stale notes marked.
 
+## Finish Pass
+
+Use a finish pass at the end of a task, sync, fix, release, or investigation. The goal is not to write a summary of everything. The goal is to decide what future work actually needs.
+
+Ask these questions:
+
+- Current state: did the active project phase, latest status, constraint, or next action change?
+- Stable knowledge: was a durable fact or verified workflow learned?
+- Pitfall: was there a repeated mistake, misleading assumption, or recovery step worth preserving?
+- Decision: was an important choice made with a reason that future agents should know?
+- History: is there a completed milestone or old state that should move out of active context?
+- No-op: is this a one-off detail that should not be written?
+
+Do not create a `spec.md` layer or turn memory into mandatory coding rules. Keep memory descriptive, reviewable, and easy to revise.
+
 ## Read Decision Table
 
 Use the smallest sufficient read set.
@@ -50,6 +66,7 @@ Use the smallest sufficient read set.
 | Error, regression, repeated mistake | current entrypoint | `pitfalls.md`, relevant history |
 | Why a choice was made | current entrypoint | `decisions.md`, relevant history |
 | Retrospective or audit | current entrypoint | history files in the requested date range |
+| Finish work or wrap up a task | current entrypoint | `knowledge.md`, `pitfalls.md`, `decisions.md`, current month history |
 
 Do not read the full memory bank by default. History is an archive, not the working context.
 

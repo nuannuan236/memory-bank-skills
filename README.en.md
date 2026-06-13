@@ -1,6 +1,6 @@
 # Memory Bank Skills
 
-[中文](README.zh-CN.md) | English
+[中文](README.md) | English
 
 Lightweight skills for maintaining project memory banks with human-reviewable files.
 
@@ -14,6 +14,8 @@ The core idea is simple:
 
 This is not an automatic memory system and is not a replacement for vector memory or agent databases. It is a conservative workflow for keeping project context clean, portable, and easy to audit.
 
+It also stays intentionally lighter than full agent harnesses. It adds a finish pass for deciding what should be remembered after work is done, but it does not introduce a `spec.md` layer or turn memory into mandatory coding rules.
+
 ## Included Skills
 
 ### Claude Code
@@ -24,7 +26,7 @@ Path:
 claude/memory-bank/
 ```
 
-This version is command-shaped. It supports action categories such as `status`, `init`, `update`, and `archive`, and is designed for Claude-style skill or slash-command workflows.
+This version is command-shaped. It supports action categories such as `status`, `init`, `update`, `archive`, and `finish`, and is designed for Claude-style skill or slash-command workflows.
 
 ### Codex
 
@@ -34,7 +36,7 @@ Path:
 codex/memory-bank-maintainer/
 ```
 
-This version is natural-language-shaped. It is designed for Codex skills and focuses on recognizing requests such as "update memory", "organize the memory bank", "archive old context", and "mark stale knowledge".
+This version is natural-language-shaped. It is designed for Codex skills and focuses on recognizing requests such as "update memory", "organize the memory bank", "archive old context", "finish this task", and "mark stale knowledge".
 
 ## Recommended Memory Structure
 
@@ -79,6 +81,8 @@ It is acceptable to store environment variable names, configuration purpose, non
 ## Example
 
 See `examples/minimal-memory-bank/` for a small before-and-after conversion from one append-only `memory.md` file into layered memory files.
+
+See `examples/finish-pass/` for a small example of deciding what should be remembered after a completed task.
 
 ## Install
 
